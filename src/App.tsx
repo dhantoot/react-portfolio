@@ -1,11 +1,29 @@
-import {MapPinHouse, Phone, AtSign, Link, Expand, House, Component} from "lucide-react"
+import {
+  MapPinHouse,
+  Phone,
+  AtSign,
+  Link,
+  Expand,
+  House,
+  Component,
+  CheckCircle2Icon,
+} from "lucide-react"
+
 import { Separator } from "@/components/ui/separator"
+
 import {
   Avatar,
   AvatarFallback,
   AvatarImage,
 } from "@/components/ui/avatar"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@/components/ui/tabs"
+
 import {
   Card,
 } from "@/components/ui/card"
@@ -21,15 +39,22 @@ import {
 import {
   Alert,
   AlertDescription,
+  AlertTitle,
 } from "@/components/ui/alert"
 
-import { Calendar } from "@/components/ui/calendar"
+import {
+  Calendar,
+} from "@/components/ui/calendar"
 
-import {useState} from "react";
+import {
+  useState,
+} from "react";
 
+
+// Component imports
 import WorkExperience from "./components/common/workExperience";
 
-
+// Type declaration
 type WorkExperience = {
   id: number
   title: string
@@ -148,19 +173,19 @@ const App = () => {
   const [date, setDate] = useState<Date | undefined>(new Date())
 
   return (
-    <div className='flex items-center justify-center h-screen gap-5'>
+    <div className='flex flex-row items-start justify-center min-h-screen gap-5'>
 
-      <div className="hidden md:flex md:w-auto h-full items-start justify-center flex-1 px-2">
-        <Alert variant="default" className="rounded-lg border mt-2 p-1">
-          <AlertDescription>
-            <section className="">
-              HAHA
-            </section>
+      <div className="hidden md:flex md:w-auto h-full items-start justify-center flex-1 p-2">
+        <Alert className={''}>
+          <CheckCircle2Icon size={15}/>
+          <AlertTitle className={'text-xs'}>Welcome!</AlertTitle>
+          <AlertDescription className={'text-xs'}>
+            This portfolio is built using react + tailwind + shadcn + lucide
           </AlertDescription>
         </Alert>
       </div>
 
-      <div className="pt-2 flex w-full md:w-3/4 lg:w-1/2 h-[100%] max-h-[100%] shrink-0">
+      <div className="py-2 flex w-full md:w-3/4 lg:w-1/2 h-full min-h-0">
         <Tabs defaultValue="account" className="h-full w-full">
 
           <TabsList className="mx-2 md:mx-0 md:px-0 flex flex-row">
@@ -172,8 +197,13 @@ const App = () => {
           </TabsList>
 
           <TabsContent value="account" className="h-full">
-            <Card className="border-0 shadow-none md:border md:shadow-sm flex flex-col p-2 gap-4 items-center h-full w-full">
-
+            <Card className="
+              border-0 shadow-none md:border md:shadow-sm
+              flex flex-col
+              p-2 gap-4
+              h-full w-full
+              min-h-0
+            ">
               {/* Avatar */}
               <div className="flex justify-center md:justify-start w-full">
                 <div className="">
@@ -232,14 +262,14 @@ const App = () => {
                   </div>
                 </div>
 
-                <div className="flex flex-col md:flex-row justify-between">
+                <div className="flex flex-col flex-1 min-h-0 md:flex-row justify-between">
 
                   {/* Skills */}
                   <div className="w-full md:w-1/3 flex flex-col gap-1 md:pr-5">
                     <Separator className="mt-5" />
                     <p className="text-xs font-bold text-blue-900">Skills</p>
 
-                    <div className="flex flex-row justify-start md:justify-between gap-5">
+                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-1">
                       <div>
                         <p className="text-xs flex items-center gap-1"><Component className="h-2 w-2 shrink-0" />Javascript</p>
                         <p className="text-xs flex items-center gap-1"><Component className="h-2 w-2 shrink-0" />Typescript</p>
@@ -275,54 +305,66 @@ const App = () => {
                   </div>
 
                   {/* Work Experience */}
-                  <div className="w-full md:w-2/3 flex flex-col gap-1 pb-10">
-                    <Separator className="mt-5" />
-                    <div className="flex flex-row justify-between items-start">
-                      <p className="text-xs font-bold text-blue-900">Work Experience</p>
-                      <div className="flex flex-row justify-end items-center gap-2 w-1/2">
+                  <div className="w-full md:w-2/3 flex flex-col h-full">
 
-                        <Dialog>
-                          <DialogTrigger>
-                            <Expand className="hidden md:block h-3 w-3 mt-1 transition-transform duration-200 hover:scale-150"/>
-                          </DialogTrigger>
-                          <DialogContent>
-                            <DialogHeader>
-                              <DialogTitle className="text-bold">
-                                Work Experiences
-                              </DialogTitle>
-                            </DialogHeader>
-                            <WorkExperience workExperiences={workExperiences} expanded={true}/>
-                          </DialogContent>
-                        </Dialog>
+                    <div className="flex flex-col h-full min-h-0">
+                      {/* Top */}
+                      <div className="shrink-0 mt-1">
+                        <Separator className="mt-4 mb-1" />
+                        <div className="flex flex-row justify-between items-start">
+                          <p className="text-xs font-bold text-blue-900 mb-1">Work Experience</p>
+                          <div className="flex flex-row justify-end items-center gap-2 w-1/2">
 
+                            <Dialog>
+                              <DialogTrigger>
+                                <Expand className="hidden md:block h-3 w-3 mt-1 transition-transform duration-200 hover:scale-150"/>
+                              </DialogTrigger>
+                              <DialogContent>
+                                <DialogHeader>
+                                  <DialogTitle className="text-bold">
+                                    Work Experiences
+                                  </DialogTitle>
+                                </DialogHeader>
+                                <WorkExperience workExperiences={workExperiences} expanded={true}/>
+                              </DialogContent>
+                            </Dialog>
+
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Middle – autofill */}
+                      <div className="flex-1 min-h-0 md:overflow-y-auto scrollbar">
+                        <WorkExperience workExperiences={workExperiences} expanded={false}/>
+                      </div>
+
+                      {/* Bottom */}
+                      <div className="shrink-0">
+                        <Separator className="mt-3" />
+                        <p className="text-xs font-bold text-blue-900 mb-1 mt-1">Education</p>
+                        {
+                          education.map((education) => {
+                            return (
+                              <section className="">
+                                <p className="text-xs font-medium">{ education?.university }</p>
+                                <p className="text-xs font-light">{ education?.degree }</p>
+                                <p className="text-xs font-light">{ education?.major }</p>
+                                <p className="text-xs font-light">{ education?.graduatedAt }</p>
+                                <ul className="pl-4">
+                                  {
+                                    education?.skills.map((skill) => {
+                                      return (
+                                        <li className="text-xs font-light">{ skill }</li>
+                                      )
+                                    })
+                                  }
+                                </ul>
+                              </section>
+                            )
+                          })
+                        }
                       </div>
                     </div>
-
-                    <WorkExperience workExperiences={workExperiences} expanded={false}/>
-
-                    <Separator className="mt-3" />
-                    <p className="text-xs font-bold text-blue-900">Education</p>
-                    {
-                      education.map((education) => {
-                        return (
-                          <section className="">
-                            <p className="text-xs font-medium">{ education?.university }</p>
-                            <p className="text-xs font-light">{ education?.degree }</p>
-                            <p className="text-xs font-light">{ education?.major }</p>
-                            <p className="text-xs font-light">{ education?.graduatedAt }</p>
-                            <ul className="pl-4">
-                              {
-                                education?.skills.map((skill) => {
-                                  return (
-                                    <li className="text-xs font-light">{ skill }</li>
-                                  )
-                                })
-                              }
-                            </ul>
-                          </section>
-                        )
-                      })
-                    }
 
                   </div>
 

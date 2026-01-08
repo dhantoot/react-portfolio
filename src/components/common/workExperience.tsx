@@ -12,31 +12,23 @@ type WorkExperience = {
 
 type WorkExperienceProps = {
   workExperiences: WorkExperience[]
-  expanded: boolean
+  expanded?: boolean
 }
 
 
 const WorkExperience = (props: WorkExperienceProps) => {
   const {
     workExperiences,
-    expanded
   } = props;
 
   console.log(props)
 
   return (
-    <div className={`flex 
-      flex-col 
-      gap-2 
-      ${!expanded ? 'md:max-h-[35vh]' : ''} 
-      overflow-y-scroll 
-      scrollbar 
-      scrollbar-thumb-neutral-400 
-      scrollbar-track-neutral-100 
-      hover:scrollbar 
-      hover:scrollbar-thumb-neutral-400 
-      hover:scrollbar-track-neutral-100`
-    }>
+    <div className={`
+      flex
+      flex-col
+      gap-2
+    `}>
 
       {
         workExperiences.map((workExperience: WorkExperience) => {
