@@ -52,7 +52,7 @@ export default {
   			}
   		},
 			fontFamily: {
-				sans: ["Dhanix13", "ui-sans-serif", "system-ui"],
+				sans: ["Dhanix14", "ui-sans-serif", "system-ui"],
 			},
   	}
   },

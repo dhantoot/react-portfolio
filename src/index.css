@@ -153,6 +153,53 @@
   src: url("../src/assets/fonts/Dhanix13-Extended.ttf");
   font-weight: 700;
 }
+
+@font-face {
+  font-family: "Dhanix14";
+  src: url("../src/assets/fonts/Dhanix14-ExtendedThin.ttf");
+  font-weight: 100;
+}
+@font-face {
+  font-family: "Dhanix14";
+  src: url("../src/assets/fonts/Dhanix14-ExtendedExtraLight.ttf");
+  font-weight: 200;
+}
+@font-face {
+  font-family: "Dhanix14";
+  src: url("../src/assets/fonts/Dhanix14-ExtendedLight.ttf");
+  font-weight: 300;
+}
+@font-face {
+  font-family: "Dhanix14";
+  src: url("../src/assets/fonts/Dhanix14-Extended.ttf");
+  font-weight: 400;
+}
+@font-face {
+  font-family: "Dhanix14";
+  src: url("../src/assets/fonts/Dhanix14-ExtendedMedium.ttf");
+  font-weight: 500;
+}
+@font-face {
+  font-family: "Dhanix14";
+  src: url("../src/assets/fonts/Dhanix14-ExtendedSemiBold.ttf");
+  font-weight: 600;
+}
+@font-face {
+  font-family: "Dhanix14";
+  src: url("../src/assets/fonts/Dhanix14-ExtendedBold.ttf");
+  font-weight: 700;
+}
+@font-face {
+  font-family: "Dhanix14";
+  src: url("../src/assets/fonts/Dhanix14-ExtendedExtraBold.ttf");
+  font-weight: 800;
+}
+@font-face {
+  font-family: "Dhanix14";
+  src: url("../src/assets/fonts/Dhanix14-ExtendedHeavy.ttf");
+  font-weight: 900;
+}
+
 @font-face {
   font-family: "Metrophobic";
   src: url("../src/assets/fonts/Metrophobic-Regular.ttf");

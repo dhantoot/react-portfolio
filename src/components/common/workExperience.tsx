@@ -47,7 +47,7 @@ const WorkExperience = (props: WorkExperienceProps) => {
                         className="flex items-center gap-1 text-xs font-light"
                       >
                         <Component className="h-2 w-2 shrink-0" />
-                        <span>{role}</span>
+                        <span className={'font-light'}>{role}</span>
                       </li>
                     )
                   })

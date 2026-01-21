@@ -143,9 +143,11 @@ const App = () => {
       major: 'Database Systems',
       graduatedAt: 'April 2014',
       skills: [
-        'Programming Foundations (Java, c++)',
+        'Object-Oriented Programming (Java, C++)',
         'Database Design',
         'Datastructures and Algorithm',
+        'Web Development (HTML, CSS, Javascript)',
+        'Application Development (Java SE)',
       ]
     }
   ])
@@ -158,11 +160,18 @@ const App = () => {
       <div className="hidden md:flex md:w-auto h-full items-start justify-center flex-1 p-2">
         <Alert className={''}>
           <CheckCircle2Icon size={15}/>
-          <AlertTitle className={'text-xs'}>Welcome!</AlertTitle>
-          <AlertDescription className={'text-xs'}>
+          <AlertTitle className={'font-semibold'}>Welcome!</AlertTitle>
+          <AlertDescription className={'text-xs font-normal'}>
             This portfolio is built using react + tailwind + shadcn + lucide
           </AlertDescription>
+
+          <Separator className="my-2"/>
+
+          <AlertDescription className={'text-xs font-light'}>
+            Also, im using my customized font here :)
+          </AlertDescription>
         </Alert>
+
       </div>
 
       <div className="py-2 flex w-full md:w-3/4 lg:w-1/2 h-full min-h-0">
@@ -172,8 +181,8 @@ const App = () => {
             <TabsTrigger value="account">
               <House className="h-4 w-4"/>
             </TabsTrigger>
-            <TabsTrigger value="projects" className="text-xs">Projects</TabsTrigger>
-            <TabsTrigger value="softtech" className="text-xs">Software & Technology</TabsTrigger>
+            <TabsTrigger value="projects" className="font-bold">Projects</TabsTrigger>
+            <TabsTrigger value="softtech" className="font-bold">Software & Technology</TabsTrigger>
           </TabsList>
 
           <TabsContent value="account" className="h-full">
@@ -205,12 +214,12 @@ const App = () => {
 
               {/* Name */}
               <div className="flex justify-center md:justify-start w-full">
-                <div className="">Tagailo, Dan Vincent</div>
+                <div className={'font-bold'}>Tagailo, Dan Vincent</div>
               </div>
 
               {/* Heading Text*/}
               <div className="flex flex-col justify-start w-full">
-                <div className="text-xs"><p>Professional Title</p></div>
+                <div className="text-xs font-semibold"><p>Professional Title</p></div>
 
                 <Separator className="mb-5"/>
                 <div className={`
@@ -224,7 +233,7 @@ const App = () => {
 
                   {/* Contact*/}
                   <div className="w-full md:w-1/3 flex flex-col md:gap-1 break-words">
-                    <p className="text-xs font-bold text-blue-900">Contact</p>
+                    <p className="text-xs font-extrabold text-blue-900">Contact</p>
                     <p className="text-xs flex items-center gap-1"><MapPinHouse className="h-3 w-3 shrink-0"/>Cagayan de
                       Oro City</p>
                     <p className="text-xs flex items-center gap-1"><Phone className="h-3 w-3 shrink-0"/>+63 968 5828 627
@@ -237,7 +246,7 @@ const App = () => {
 
                   {/* Profile */}
                   <div className="w-full md:w-2/3 flex flex-col gap-1">
-                    <p className="text-xs font-bold text-blue-900">Profile</p>
+                    <p className="text-xs font-extrabold text-blue-900">Profile</p>
                     <p className="text-xs">For over a decade, Dan has worked in the IT industry developing software
                       applications across a wide range of
                       backend and frontend technologies. He is a full-stack developer with experience in requirement
@@ -255,7 +264,7 @@ const App = () => {
                   {/* Skills */}
                   <div className="w-full md:w-1/3 flex flex-col gap-1 md:pr-5">
                     <Separator className="mt-5"/>
-                    <p className="text-xs font-bold text-blue-900">Skills</p>
+                    <p className="text-xs font-extrabold text-blue-900">Skills</p>
 
                     <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-1">
                       <div>
@@ -318,7 +327,7 @@ const App = () => {
                       <div className="shrink-0 mt-1">
                         <Separator className="mt-4 mb-1"/>
                         <div className="flex flex-row justify-between items-start">
-                          <p className="text-xs font-bold text-blue-900 mb-1">Work Experience</p>
+                          <p className="text-xs font-extrabold text-blue-900 mb-1">Work Experience</p>
                           <div className="flex flex-row justify-end items-center gap-2 w-1/2">
 
                             <Dialog>
@@ -348,7 +357,7 @@ const App = () => {
                       {/* Bottom */}
                       <div className="shrink-0">
                         <Separator className="mt-3"/>
-                        <p className="text-xs font-bold text-blue-900 mb-1 mt-1">Education</p>
+                        <p className="text-xs font-extrabold text-blue-900 mb-1 mt-1">Education</p>
                         {
                           education.map((education) => {
                             return (
@@ -436,7 +445,7 @@ const App = () => {
           ">
           <PanelCard
             title={
-              <div className={'flex flex-row gap-1'}>
+              <div className={'flex flex-row gap-1 font-extrabold'}>
                 <Link size={15}/>
                 Connections
               </div>
@@ -464,7 +473,7 @@ const App = () => {
           ">
           <PanelCard
             title={
-              <div className={'flex flex-row gap-1'}>
+              <div className={'flex flex-row gap-1 font-extrabold'}>
                 <GitBranch size={15}/>
                 Repositories
               </div>
@@ -498,7 +507,7 @@ const App = () => {
 
           <PanelCard
             title={
-              <div className={'flex flex-row gap-1'}>
+              <div className={'flex flex-row gap-1 font-extrabold'}>
                 <MessageCircleMore size={15}/>
                 Chat
               </div>

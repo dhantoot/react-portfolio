@@ -69,7 +69,6 @@ function PanelCard({
           shrink-0
           border-t
           px-2 py-2
-          bg-white/80
         ">
           {footer}
         </div>
