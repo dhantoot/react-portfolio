@@ -133,6 +133,22 @@
   border: 1px dotted coral;
 }
 
+::-webkit-scrollbar {
+  width: 6px; /* Makes the scrollbar narrow */
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-muted-foreground/15 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-muted-foreground/50;
+}
+
 @font-face {
   font-family: "Dhanix13";
   src: url("../src/assets/fonts/Dhanix13-Light.ttf");

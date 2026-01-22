@@ -25,7 +25,7 @@ import {Alert, AlertDescription, AlertTitle,} from "@/components/ui/alert"
 
 import {Badge} from "@/components/ui/badge";
 
-import {useState,} from "react";
+import {useState, useRef, useEffect} from "react";
 
 
 // Component imports
@@ -153,8 +153,40 @@ const App = () => {
 
   // const [date, setDate] = useState<Date | undefined>(new Date())
 
+  const middleColumnRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    const middle = middleColumnRef.current;
+    if (!container || !middle) return;
+
+    const handleWheel = (e: WheelEvent) => {
+      // If the mouse is inside the middle column, let the browser handle it (1x speed)
+      if (middle.contains(e.target as Node)) {
+        return;
+      }
+
+      // If the mouse is on sidebars:
+      // 1. Prevent any default sidebar "stutter"
+      e.preventDefault();
+
+      // 2. Apply a multiplier to make it feel faster (try 1.5 to 2.0)
+      const scrollSpeed = 1.5;
+
+      middle.scrollTop += e.deltaY * scrollSpeed;
+    };
+
+    // 'passive: false' allows us to use e.preventDefault() for instant response
+    container.addEventListener("wheel", handleWheel, { passive: false });
+
+    return () => {
+      container.removeEventListener("wheel", handleWheel);
+    };
+  }, []);
+
   return (
-    <div className='flex flex-row items-start justify-center h-screen overflow-hidden gap-5'>
+    <div ref={containerRef}   className='flex flex-row items-start justify-center h-screen overflow-hidden gap-5'>
 
       <div className="hidden md:flex md:w-1/4 h-full items-start justify-center p-2">
         <Alert className={''}>
@@ -173,8 +205,9 @@ const App = () => {
 
       </div>
 
-      <div className="flex flex-col w-full h-full flex-1 px-2 gap-5 py-2 overflow-y-auto">
-        <div className="h-[2000px] bg-gray-100">
+      <div ref={middleColumnRef} className="flex flex-col w-full h-full flex-1 px-2 gap-5 py-2 overflow-y-auto no-scrollbar">
+
+        <div className="h-[2000px] ">
           <Tabs defaultValue="account" className="max-h-vh w-full">
 
             <TabsList className="mx-2 md:mx-0 md:px-0 flex flex-row">
@@ -185,7 +218,7 @@ const App = () => {
               <TabsTrigger value="softtech" className="font-bold">Software & Technology</TabsTrigger>
             </TabsList>
 
-            <TabsContent value="account" className="debug">
+            <TabsContent value="account" className="">
               <Card className="
                 border-0 shadow-none md:border md:shadow-sm
                 flex flex-col
@@ -390,7 +423,7 @@ const App = () => {
               </Card>
             </TabsContent>
 
-            <TabsContent value="projects" className="debug">
+            <TabsContent value="projects" className="">
               <Card
                 className="border-0 shadow-none md:border md:shadow-sm flex flex-row p-2 gap-4 justify-between items-start h-full w-full">
                 <div className="flex justify-start flex-1">
@@ -406,7 +439,7 @@ const App = () => {
               </Card>
             </TabsContent>
 
-            <TabsContent value="softtech" className="debug">
+            <TabsContent value="softtech" className="">
               <Card
                 className="border-0 shadow-none md:border md:shadow-sm flex flex-row p-2 gap-4 justify-between items-start h-full w-full">
                 <div className="flex justify-start w-full">
@@ -419,6 +452,7 @@ const App = () => {
 
           </Tabs>
         </div>
+
       </div>
 
       <div className="hidden md:flex md:flex-col md:w-1/4 h-full items-start justify-between px-2 gap-5 py-2">

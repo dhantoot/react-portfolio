@@ -35,11 +35,11 @@ const people = [
 
 export function Colleagues() {
   return (
-    <div className="flex w-full max-w-md flex-col gap-6">
-      <ItemGroup>
+    <div className="flex w-full flex flex-col gap-6">
+      <ItemGroup className={''}>
         {people.map((person, index) => (
           <React.Fragment key={person.username}>
-            <Item>
+            <Item size={'sm'} className={''}>
               <ItemMedia>
                 <Avatar>
                   <AvatarImage src={person.avatar} className="grayscale"/>
