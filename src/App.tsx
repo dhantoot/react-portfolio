@@ -1,7 +1,6 @@
 import {
   AtSign,
   CheckCircle2Icon,
-  Component,
   Expand,
   GitBranch,
   House,
@@ -32,6 +31,7 @@ import {useState, useRef, useEffect} from "react";
 import WorkExperience from "./components/common/workExperience";
 import Colleagues from "./components/common/colleagues.tsx"
 import PanelCard from "@/components/common/panelCard.tsx";
+import Skills from "@/components/common/skills.tsx";
 
 // Type declaration
 type WorkExperience = {
@@ -156,37 +156,67 @@ const App = () => {
   const middleColumnRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
+  const scrollData = useRef({
+    targetY: 0,
+    currentY: 0,
+    isAnimating: false,
+  });
+
   useEffect(() => {
     const container = containerRef.current;
     const middle = middleColumnRef.current;
     if (!container || !middle) return;
 
+    // Synchronization loop
+    const smoothLoop = () => {
+      const { targetY, currentY } = scrollData.current;
+
+      // Calculate distance to move (lerp for smoothing)
+      // 0.1 is the smoothing factor; lower = smoother/slower
+      const diff = targetY - currentY;
+      const step = diff * 0.15;
+
+      if (Math.abs(step) > 0.1) {
+        scrollData.current.currentY += step;
+        middle.scrollTop = scrollData.current.currentY;
+        requestAnimationFrame(smoothLoop);
+      } else {
+        scrollData.current.isAnimating = false;
+      }
+    };
+
     const handleWheel = (e: WheelEvent) => {
-      // If the mouse is inside the middle column, let the browser handle it (1x speed)
       if (middle.contains(e.target as Node)) {
+        // Update the current state so manual and native scrolls stay synced
+        scrollData.current.targetY = middle.scrollTop;
+        scrollData.current.currentY = middle.scrollTop;
         return;
       }
 
-      // If the mouse is on sidebars:
-      // 1. Prevent any default sidebar "stutter"
       e.preventDefault();
 
-      // 2. Apply a multiplier to make it feel faster (try 1.5 to 2.0)
-      const scrollSpeed = 1.5;
+      // Update the target position based on the wheel delta
+      const scrollMultiplier = 1.2;
+      const newTarget = scrollData.current.targetY + (e.deltaY * scrollMultiplier);
 
-      middle.scrollTop += e.deltaY * scrollSpeed;
+      // Clamp target within scroll bounds
+      const maxScroll = middle.scrollHeight - middle.clientHeight;
+      scrollData.current.targetY = Math.max(0, Math.min(newTarget, maxScroll));
+
+      // Start an animation loop if not already running
+      if (!scrollData.current.isAnimating) {
+        scrollData.current.isAnimating = true;
+        requestAnimationFrame(smoothLoop);
+      }
     };
 
-    // 'passive: false' allows us to use e.preventDefault() for instant response
     container.addEventListener("wheel", handleWheel, { passive: false });
 
-    return () => {
-      container.removeEventListener("wheel", handleWheel);
-    };
+    return () => container.removeEventListener("wheel", handleWheel);
   }, []);
 
   return (
-    <div ref={containerRef}   className='flex flex-row items-start justify-center h-screen overflow-hidden gap-5'>
+    <div ref={containerRef}   className='flex flex-row items-start justify-center h-screen overflow-hidden gap-1'>
 
       <div className="hidden md:flex md:w-1/4 h-full items-start justify-center p-2">
         <Alert className={''}>
@@ -205,7 +235,7 @@ const App = () => {
 
       </div>
 
-      <div ref={middleColumnRef} className="flex flex-col w-full h-full flex-1 px-2 gap-5 py-2 overflow-y-auto no-scrollbar">
+      <div ref={middleColumnRef} className="flex flex-col w-full h-full flex-1 gap-5 py-2 overflow-y-auto no-scrollbar">
 
         <div className="h-[2000px] ">
           <Tabs defaultValue="account" className="max-h-vh w-full">
@@ -219,13 +249,7 @@ const App = () => {
             </TabsList>
 
             <TabsContent value="account" className="">
-              <Card className="
-                border-0 shadow-none md:border md:shadow-sm
-                flex flex-col
-                p-2 gap-4
-                h-full w-full
-                min-h-0
-              ">
+              <Card className="border-0 shadow-none md:border md:shadow-sm flex flex-col p-2 gap-4 h-full w-full min-h-0">
                 {/* Avatar */}
                 <div className="flex justify-center md:justify-start w-full">
                   <div className="">
@@ -255,26 +279,18 @@ const App = () => {
                   <div className="text-xs font-semibold"><p>Professional Title</p></div>
 
                   <Separator className="mb-5"/>
-                  <div className={`
-                    flex
-                    flex-col
-                    md:flex-row
-                    justify-between
-                    gap-4
-                    md:gap-0
-                  `}>
+                  <div className={`flex flex-col md:flex-row justify-between gap-4 md:gap-0`}>
 
                     {/* Contact*/}
                     <div className="w-full md:w-1/3 flex flex-col md:gap-1 break-words">
                       <p className="text-xs font-extrabold text-blue-900">Contact</p>
-                      <p className="text-xs flex items-center gap-1"><MapPinHouse className="h-3 w-3 shrink-0"/>Cagayan de
-                        Oro City</p>
-                      <p className="text-xs flex items-center gap-1"><Phone className="h-3 w-3 shrink-0"/>+63 968 5828 627
-                      </p>
-                      <p className="text-xs flex items-center gap-1"><AtSign className="h-3 w-3 shrink-0"/>tagailo.danvincent@gmail.com
-                      </p>
-                      <a href="https://www.linkedin.com/in/dhanixblue" target="_blank"
-                         className="text-xs underline flex items-center gap-1"><Link className="h-3 w-3 shrink-0"/>linkedin.com/in/dhanixblue</a>
+                      <p className="text-xs flex items-center gap-1"><MapPinHouse className="h-3 w-3 shrink-0"/>Cagayan de Oro City</p>
+                      <p className="text-xs flex items-center gap-1"><Phone className="h-3 w-3 shrink-0"/>+63 968 5828 627 </p>
+                      <p className="text-xs flex items-center gap-1"><AtSign className="h-3 w-3 shrink-0"/>tagailo.danvincent@gmail.com </p>
+                      <a href="https://www.linkedin.com/in/dhanixblue" target="_blank" className="text-xs underline flex items-center gap-1">
+                        <Link className="h-3 w-3 shrink-0"/>
+                        linkedin.com/in/dhanixblue
+                      </a>
                     </div>
 
                     {/* Profile */}
@@ -294,59 +310,44 @@ const App = () => {
 
                   <div className="flex flex-col flex-1 min-h-0 md:flex-row justify-between">
 
-                    {/* Skills */}
+
                     <div className="w-full md:w-1/3 flex flex-col gap-1 md:pr-5">
                       <Separator className="mt-5"/>
+
+                      {/* Skills */}
                       <p className="text-xs font-extrabold text-blue-900">Skills</p>
+                      <div className="flex flex-wrap gap-2">
+                        {/* <div> */}
 
-                      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-1">
-                        <div>
-                          <p className="text-xs flex items-center gap-1"><Component className="h-2 w-2 shrink-0"/>Javascript
-                          </p>
-                          <p className="text-xs flex items-center gap-1"><Component className="h-2 w-2 shrink-0"/>Typescript
-                          </p>
-                          <p className="text-xs flex items-center gap-1"><Component className="h-2 w-2 shrink-0"/>VueJs
-                          </p>
-                          <p className="text-xs flex items-center gap-1"><Component className="h-2 w-2 shrink-0"/>QuasarJs
-                          </p>
-                          <p className="text-xs flex items-center gap-1"><Component className="h-2 w-2 shrink-0"/>ReactJs
-                          </p>
-                          <p className="text-xs flex items-center gap-1"><Component className="h-2 w-2 shrink-0"/>NextJs
-                          </p>
-                          <p className="text-xs flex items-center gap-1"><Component className="h-2 w-2 shrink-0"/>Shadcn
-                          </p>
-                          <p className="text-xs flex items-center gap-1"><Component className="h-2 w-2 shrink-0"/>Tailwind
-                          </p>
-                        </div>
+                          <Skills />
+                      </div>
 
-                        <div>
-                          <p className="text-xs flex items-center gap-1"><Component className="h-2 w-2 shrink-0"/>Express
-                          </p>
-                          <p className="text-xs flex items-center gap-1"><Component className="h-2 w-2 shrink-0"/>Restify
-                          </p>
-                          <p className="text-xs flex items-center gap-1"><Component className="h-2 w-2 shrink-0"/>Loopback
-                          </p>
-                          <p className="text-xs flex items-center gap-1"><Component className="h-2 w-2 shrink-0"/>NestJs
-                          </p>
-                          <p className="text-xs flex items-center gap-1"><Component className="h-2 w-2 shrink-0"/>Java SE
-                          </p>
-                          <p className="text-xs flex items-center gap-1"><Component className="h-2 w-2 shrink-0"/>PHP</p>
-                          <p className="text-xs flex items-center gap-1"><Component className="h-2 w-2 shrink-0"/>Python
-                          </p>
-                          <p className="text-xs flex items-center gap-1"><Component className="h-2 w-2 shrink-0"/>Django
-                          </p>
-                        </div>
+                      <Separator className={'mt-5'}/>
 
-                        <div>
-                          <p className="text-xs flex items-center gap-1"><Component className="h-2 w-2 shrink-0"/>Firebase
-                          </p>
-                          <p className="text-xs flex items-center gap-1"><Component className="h-2 w-2 shrink-0"/>Bull</p>
-                          <p className="text-xs flex items-center gap-1"><Component className="h-2 w-2 shrink-0"/>Sinon
-                          </p>
-                          <p className="text-xs flex items-center gap-1"><Component className="h-2 w-2 shrink-0"/>Mocha
-                          </p>
-                          <p className="text-xs flex items-center gap-1"><Component className="h-2 w-2 shrink-0"/>Jest</p>
-                        </div>
+                      {/* Education */}
+                      <div className="shrink-0">
+                        <p className="text-xs font-extrabold text-blue-900 mb-1 mt-1">Education</p>
+                        {
+                          education.map((education) => {
+                            return (
+                              <section className="">
+                                <p className="text-xs font-medium">{education?.university}</p>
+                                <p className="text-xs font-light">{education?.degree}</p>
+                                <p className="text-xs font-light">{education?.major}</p>
+                                <p className="text-xs font-light">{education?.graduatedAt}</p>
+                                <ul className="pl-4">
+                                  {
+                                    education?.skills.map((skill) => {
+                                      return (
+                                        <li className="text-xs font-light">{skill}</li>
+                                      )
+                                    })
+                                  }
+                                </ul>
+                              </section>
+                            )
+                          })
+                        }
                       </div>
 
 
@@ -383,36 +384,10 @@ const App = () => {
                         </div>
 
                         {/* Middle – autofill */}
-                        <div className="flex-1 min-h-0 md:overflow-y-auto scrollbar">
+                        <div className="flex-1 min-h-0 md:overflow-y-auto no-scrollbar">
                           <WorkExperience workExperiences={workExperiences} expanded={false}/>
                         </div>
 
-                        {/* Bottom */}
-                        <div className="shrink-0">
-                          <Separator className="mt-3"/>
-                          <p className="text-xs font-extrabold text-blue-900 mb-1 mt-1">Education</p>
-                          {
-                            education.map((education) => {
-                              return (
-                                <section className="">
-                                  <p className="text-xs font-medium">{education?.university}</p>
-                                  <p className="text-xs font-light">{education?.degree}</p>
-                                  <p className="text-xs font-light">{education?.major}</p>
-                                  <p className="text-xs font-light">{education?.graduatedAt}</p>
-                                  <ul className="pl-4">
-                                    {
-                                      education?.skills.map((skill) => {
-                                        return (
-                                          <li className="text-xs font-light">{skill}</li>
-                                        )
-                                      })
-                                    }
-                                  </ul>
-                                </section>
-                              )
-                            })
-                          }
-                        </div>
                       </div>
 
                     </div>
@@ -457,14 +432,7 @@ const App = () => {
 
       <div className="hidden md:flex md:flex-col md:w-1/4 h-full items-start justify-between px-2 gap-5 py-2">
         {/* Top */}
-        <div
-          className="
-            flex
-            flex-col
-            gap-4
-            w-full
-            shrink-0
-          ">
+        <div className="flex flex-col gap-4 w-full shrink-0">
           <PanelCard
             title={
               <div className={'flex flex-row gap-1 font-extrabold'}>
@@ -486,13 +454,7 @@ const App = () => {
         </div>
 
         {/* Middle */}
-        <div
-          className="
-            flex flex-col
-            gap-4
-            w-full
-            flex-1
-          ">
+        <div className="flex flex-col gap-4 w-full flex-1">
           <PanelCard
             title={
               <div className={'flex flex-row gap-1 font-extrabold'}>
@@ -514,18 +476,7 @@ const App = () => {
         </div>
 
         {/* Chatbox */}
-        <div
-          className="
-            shrink-0
-            md:shadow-sm
-            flex flex-col
-            w-full
-            min-h-0
-            md:max-h-[40vh]
-            rounded-xl
-            overflow-hidden
-            bg-white
-          ">
+        <div className="shrink-0 md:shadow-sm flex flex-col w-full min-h-0 md:max-h-[40vh] rounded-xl overflow-hiddenbg-white">
 
           <PanelCard
             title={
@@ -544,24 +495,8 @@ const App = () => {
               <div className="flex items-center gap-2">
                 <input
                   placeholder="Message…"
-                  className="
-                    flex-1
-                    rounded-full
-                    border
-                    px-3 py-1
-                    text-xs
-                    focus:outline-none
-                    focus:ring-1
-                  "/>
-                <button
-                  className="
-                    rounded-full
-                    bg-blue-600
-                    text-white
-                    px-3 py-1
-                    text-xs
-                    hover:bg-blue-700
-                  ">
+                  className="flex-1 rounded-full border px-3 py-1 text-xs focus:outline-none focus:ring-1"/>
+                <button className="rounded-full bg-blue-600 text-white px-3 py-1 text-xs hover:bg-blue-700">
                   Send
                 </button>
               </div>

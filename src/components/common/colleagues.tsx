@@ -1,6 +1,6 @@
 import * as React from "react"
 import {memo} from "react"
-import {PlusIcon} from "lucide-react"
+import {Link } from "lucide-react"
 
 import {Avatar, AvatarFallback, AvatarImage,} from "@/components/ui/avatar"
 import {Button} from "@/components/ui/button"
@@ -19,21 +19,24 @@ const people = [
   {
     username: "Ron Soriano",
     avatar: "https://github.com/shadcn.png",
-    email: "shadcn@vercel.com",
+    email: "ron.soriano@sls.com.au",
+    githubLink: 'https://www.linkedin.com/in/ron-terrie-soriano/',
   },
   {
     username: "Wilbert Santos",
     avatar: "https://github.com/maxleiter.png",
-    email: "maxleiter@vercel.com",
+    email: "wilbert.santos@sls.com.au",
+    githubLink: 'https://www.linkedin.com/in/wilbertsntos/',
   },
   {
     username: "Joseph Magsajo",
     avatar: "https://github.com/evilrabbit.png",
-    email: "evilrabbit@vercel.com",
+    email: "joseph.magsajo@sls.com.au",
+    githubLink: 'https://www.linkedin.com/in/joseph-magsajo-a239a442/',
   },
 ]
 
-export function Colleagues() {
+function Colleagues() {
   return (
     <div className="flex w-full flex flex-col gap-6">
       <ItemGroup className={''}>
@@ -51,8 +54,8 @@ export function Colleagues() {
                 <ItemDescription>{person.email}</ItemDescription>
               </ItemContent>
               <ItemActions>
-                <Button variant="ghost" size="icon" className="rounded-full">
-                  <PlusIcon/>
+                <Button asChild variant="ghost" size="sm" className="">
+                  <a href={person.githubLink} target={'_blank'}><Link className="w-5 h-5"/></a>
                 </Button>
               </ItemActions>
             </Item>

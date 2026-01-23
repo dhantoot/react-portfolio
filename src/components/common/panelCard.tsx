@@ -11,34 +11,20 @@ type PanelCardProps = {
 };
 
 function PanelCard({
-                     title,
-                     subtitle,
-                     headerRight,
-                     children,
-                     footer,
-                     className,
-                   }: PanelCardProps) {
+    title,
+    subtitle,
+    headerRight,
+    children,
+    footer,
+    className,
+ }: PanelCardProps) {
+
   return (
-    <Card
-      className={`
-        flex flex-col
-        border-0 md:border md:shadow-sm
-        bg-neutral-50/60
-        min-h-0
-        ${className ?? ''}
-      `}
-    >
+    <Card className={`flex flex-col border-0 md:border md:shadow-sm bg-neutral-50/60 min-h-0 ${className ?? ''} `}>
       {/* Header */}
       {
         (title || headerRight) && (
-          <div className="
-          shrink-0
-          flex items-center justify-between
-          px-3 py-2
-          border-b
-          text-xs font-medium
-          text-neutral-700
-        ">
+          <div className="shrink-0 flex items-center justify-between px-3 py-2 border-b text-xs font-mediumtext-neutral-700">
             <div className="flex flex-row w-full justify-between">
               {title}
               {subtitle && (
@@ -54,22 +40,13 @@ function PanelCard({
       }
 
       {/* Body */}
-      <div className="
-        flex-1
-        min-h-0
-        overflow-y-auto
-        px-3 py-2
-      ">
+      <div className="flex-1 min-h-0 overflow-y-auto px-3 py-2 ">
         {children}
       </div>
 
       {/* Footer */}
       {footer && (
-        <div className="
-          shrink-0
-          border-t
-          px-2 py-2
-        ">
+        <div className="shrink-0 border-t px-2 py-2">
           {footer}
         </div>
       )}

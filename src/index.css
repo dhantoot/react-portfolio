@@ -129,94 +129,97 @@
   }
 }
 
-.debug {
-  border: 1px dotted coral;
+@layer utilities {
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .no-scrollbar {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px; /* Makes the scrollbar narrow */
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-muted-foreground/15 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-muted-foreground/50;
+  }
+
+
+/* Fonts */
+  @font-face {
+    font-family: "Dhanix14";
+    src: url("../src/assets/fonts/Dhanix14-ExtendedThin.ttf");
+    font-weight: 100;
+  }
+  @font-face {
+    font-family: "Dhanix14";
+    src: url("../src/assets/fonts/Dhanix14-ExtendedExtraLight.ttf");
+    font-weight: 200;
+  }
+  @font-face {
+    font-family: "Dhanix14";
+    src: url("../src/assets/fonts/Dhanix14-ExtendedLight.ttf");
+    font-weight: 300;
+  }
+  @font-face {
+    font-family: "Dhanix14";
+    src: url("../src/assets/fonts/Dhanix14-Extended.ttf");
+    font-weight: 400;
+  }
+  @font-face {
+    font-family: "Dhanix14";
+    src: url("../src/assets/fonts/Dhanix14-ExtendedMedium.ttf");
+    font-weight: 500;
+  }
+  @font-face {
+    font-family: "Dhanix14";
+    src: url("../src/assets/fonts/Dhanix14-ExtendedSemiBold.ttf");
+    font-weight: 600;
+  }
+  @font-face {
+    font-family: "Dhanix14";
+    src: url("../src/assets/fonts/Dhanix14-ExtendedBold.ttf");
+    font-weight: 700;
+  }
+  @font-face {
+    font-family: "Dhanix14";
+    src: url("../src/assets/fonts/Dhanix14-ExtendedExtraBold.ttf");
+    font-weight: 800;
+  }
+  @font-face {
+    font-family: "Dhanix14";
+    src: url("../src/assets/fonts/Dhanix14-ExtendedHeavy.ttf");
+    font-weight: 900;
+  }
+  @font-face {
+    font-family: "Metrophobic";
+    src: url("../src/assets/fonts/Metrophobic-Regular.ttf");
+  }
+
+  /* debugger */
+  .debug {
+    border: 1px dotted coral;
+  }
+  .debug-child {
+    border: 1px dotted green;
+  }
+
 }
 
-::-webkit-scrollbar {
-  width: 6px; /* Makes the scrollbar narrow */
-}
 
-::-webkit-scrollbar-track {
-  background: transparent;
-}
 
-::-webkit-scrollbar-thumb {
-  @apply bg-muted-foreground/15 rounded-full;
-}
 
-::-webkit-scrollbar-thumb:hover {
-  @apply bg-muted-foreground/50;
-}
 
-@font-face {
-  font-family: "Dhanix13";
-  src: url("../src/assets/fonts/Dhanix13-Light.ttf");
-  font-weight: 400;
-}
-@font-face {
-  font-family: "Dhanix13";
-  src: url("../src/assets/fonts/Dhanix13-Regular.ttf");
-  font-weight: 500;
-}
-@font-face {
-  font-family: "Dhanix13";
-  src: url("../src/assets/fonts/Dhanix13-SemiExtended.ttf");
-  font-weight: 600;
-}
-@font-face {
-  font-family: "Dhanix13";
-  src: url("../src/assets/fonts/Dhanix13-Extended.ttf");
-  font-weight: 700;
-}
-
-@font-face {
-  font-family: "Dhanix14";
-  src: url("../src/assets/fonts/Dhanix14-ExtendedThin.ttf");
-  font-weight: 100;
-}
-@font-face {
-  font-family: "Dhanix14";
-  src: url("../src/assets/fonts/Dhanix14-ExtendedExtraLight.ttf");
-  font-weight: 200;
-}
-@font-face {
-  font-family: "Dhanix14";
-  src: url("../src/assets/fonts/Dhanix14-ExtendedLight.ttf");
-  font-weight: 300;
-}
-@font-face {
-  font-family: "Dhanix14";
-  src: url("../src/assets/fonts/Dhanix14-Extended.ttf");
-  font-weight: 400;
-}
-@font-face {
-  font-family: "Dhanix14";
-  src: url("../src/assets/fonts/Dhanix14-ExtendedMedium.ttf");
-  font-weight: 500;
-}
-@font-face {
-  font-family: "Dhanix14";
-  src: url("../src/assets/fonts/Dhanix14-ExtendedSemiBold.ttf");
-  font-weight: 600;
-}
-@font-face {
-  font-family: "Dhanix14";
-  src: url("../src/assets/fonts/Dhanix14-ExtendedBold.ttf");
-  font-weight: 700;
-}
-@font-face {
-  font-family: "Dhanix14";
-  src: url("../src/assets/fonts/Dhanix14-ExtendedExtraBold.ttf");
-  font-weight: 800;
-}
-@font-face {
-  font-family: "Dhanix14";
-  src: url("../src/assets/fonts/Dhanix14-ExtendedHeavy.ttf");
-  font-weight: 900;
-}
-
-@font-face {
-  font-family: "Metrophobic";
-  src: url("../src/assets/fonts/Metrophobic-Regular.ttf");
-}

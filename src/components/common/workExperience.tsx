@@ -24,43 +24,37 @@ const WorkExperience = (props: WorkExperienceProps) => {
   console.log(props)
 
   return (
-    <div className={`
-      flex
-      flex-col
-      gap-2
-    `}>
+      <div className={`flex flex-col gap-2`}>
+          {
+              workExperiences.map((workExperience: WorkExperience) => {
 
-      {
-        workExperiences.map((workExperience: WorkExperience) => {
-          return (
+                  return (
+                      <section className="" key={workExperience.id}>
+                        <p className="text-xs font-bold underline">{ workExperience?.title }</p>
+                        <p className="text-xs font-semibold text-orange-800">{ workExperience?.organization }</p>
+                        <p className="text-xs font-medium">{ workExperience?.dateStart } - { workExperience?.dateEnd }</p>
+                        <ul className="pl-4">
+                          {
+                            workExperience?.roles.map((role) => {
+                              return (
+                                <li
+                                  key={role}
+                                  className="flex items-center gap-1 text-xs font-light"
+                                >
+                                  <Component className="h-2 w-2 shrink-0" />
+                                  <span className={'font-light'}>{role}</span>
+                                </li>
+                              )
+                            })
+                          }
+                        </ul>
+                      </section>
+                 )
 
-            <section className="" key={workExperience.id}>
-              <p className="text-xs font-medium underline">{ workExperience?.title }</p>
-              <p className="text-xs font-semibold text-orange-800">{ workExperience?.organization }</p>
-              <p className="text-xs font-light">{ workExperience?.dateStart } - { workExperience?.dateEnd }</p>
-              <ul className="pl-4">
-                {
-                  workExperience?.roles.map((role) => {
-                    return (
-                      <li
-                        key={role}
-                        className="flex items-center gap-1 text-xs font-light"
-                      >
-                        <Component className="h-2 w-2 shrink-0" />
-                        <span className={'font-light'}>{role}</span>
-                      </li>
-                    )
-                  })
-                }
-              </ul>
-            </section>
-
-          )
-        })
-      }
-
-    </div>
+              })
+          }
+      </div>
   );
 };
+
 export default memo(WorkExperience);
-// export default WorkExperience;
