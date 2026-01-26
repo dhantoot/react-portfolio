@@ -16,7 +16,7 @@ import {Avatar, AvatarFallback, AvatarImage,} from "@/components/ui/avatar"
 
 import {Tabs, TabsContent, TabsList, TabsTrigger,} from "@/components/ui/tabs"
 
-import {Card,} from "@/components/ui/card"
+import {Card} from "@/components/ui/card"
 
 import {Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger,} from "@/components/ui/dialog"
 
@@ -24,7 +24,7 @@ import {Alert, AlertDescription, AlertTitle,} from "@/components/ui/alert"
 
 import {Badge} from "@/components/ui/badge";
 
-import {useState, useRef, useEffect} from "react";
+import {useEffect, useRef, useState} from "react";
 
 
 // Component imports
@@ -32,6 +32,29 @@ import WorkExperience from "./components/common/workExperience";
 import Colleagues from "./components/common/colleagues.tsx"
 import PanelCard from "@/components/common/panelCard.tsx";
 import Skills from "@/components/common/skills.tsx";
+import GameTiles from "@/components/common/gameTiles.tsx";
+import ShapeAndColorMatching from "@/components/games/shapeAndColorMatching.tsx";
+import AlphabetTracing from "@/components/games/alphabetTracing.tsx";
+import Alphabet from "@/components/games/alphabet.tsx";
+import NumbersAndAnimals from "@/components/games/numbersAndAnimals.tsx";
+import ColorMatchGame from "@/components/games/colors.tsx";
+import FindTheColor from "@/components/games/findColor.tsx";
+import Numbers1to50 from "@/components/games/numbers.tsx";
+import ShapesTapSpeak from "@/components/games/shapes.tsx";
+import FindTheShape from "@/components/games/findShape.tsx";
+import DragMatchColors from "@/components/games/matchColor.tsx";
+import AnimalSounds from "@/components/games/animalSound.tsx";
+import DragMatchShapes from "@/components/games/matchShape.tsx";
+import FindBodyParts from "@/components/games/findBodyParts.tsx";
+import BodyPartsTapSpeak from "@/components/games/bodyParts.tsx";
+import FruitsTapSpeak from "@/components/games/fruits.tsx";
+import VeggiesTapSpeak from "@/components/games/veggies.tsx";
+import FishTapSpeak from "@/components/games/fish.tsx";
+import BirdsTapSpeak from "@/components/games/birds.tsx";
+import TetrisGame from "@/components/games/tetris.tsx";
+import SnakeGame from "@/components/games/snake.tsx";
+import DinoRunner from "@/components/games/dino.tsx";
+import ShapeDropbox from "@/components/games/shapeDropBox.tsx";
 
 // Type declaration
 type WorkExperience = {
@@ -156,12 +179,22 @@ const App = () => {
   const middleColumnRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
+  const [selectedTile, setSelectedTile] = useState(0);
+
   const scrollData = useRef({
     targetY: 0,
     currentY: 0,
     isAnimating: false,
   });
 
+  const onClicked = (title: string, index: number) => {
+    console.log(title, index);
+    setSelectedTile(index);
+  }
+
+  const isActive = (index: number) => {
+    return index === selectedTile;
+  }
   useEffect(() => {
     const container = containerRef.current;
     const middle = middleColumnRef.current;
@@ -169,7 +202,7 @@ const App = () => {
 
     // Synchronization loop
     const smoothLoop = () => {
-      const { targetY, currentY } = scrollData.current;
+      const {targetY, currentY} = scrollData.current;
 
       // Calculate distance to move (lerp for smoothing)
       // 0.1 is the smoothing factor; lower = smoother/slower
@@ -210,13 +243,13 @@ const App = () => {
       }
     };
 
-    container.addEventListener("wheel", handleWheel, { passive: false });
+    container.addEventListener("wheel", handleWheel, {passive: false});
 
     return () => container.removeEventListener("wheel", handleWheel);
   }, []);
 
   return (
-    <div ref={containerRef}   className='flex flex-row items-start justify-center h-screen overflow-hidden gap-1'>
+    <div ref={containerRef} className='flex flex-row items-start justify-center h-screen overflow-hidden gap-1'>
 
       <div className="hidden md:flex md:w-1/4 h-full items-start justify-center p-2">
         <Alert className={''}>
@@ -237,7 +270,7 @@ const App = () => {
 
       <div ref={middleColumnRef} className="flex flex-col w-full h-full flex-1 gap-5 py-2 overflow-y-auto no-scrollbar">
 
-        <div className="h-[2000px] ">
+        <div className="h-[1080px] ">
           <Tabs defaultValue="account" className="max-h-vh w-full">
 
             <TabsList className="mx-2 md:mx-0 md:px-0 flex flex-row">
@@ -246,10 +279,12 @@ const App = () => {
               </TabsTrigger>
               <TabsTrigger value="projects" className="font-bold">Projects</TabsTrigger>
               <TabsTrigger value="softtech" className="font-bold">Software & Technology</TabsTrigger>
+              <TabsTrigger value="games" className="font-bold">Games</TabsTrigger>
             </TabsList>
 
             <TabsContent value="account" className="">
-              <Card className="border-0 shadow-none md:border md:shadow-sm flex flex-col p-2 gap-4 h-full w-full min-h-0">
+              <Card
+                className="border-0 shadow-none md:border md:shadow-sm flex flex-col p-2 gap-4 h-full w-full min-h-0">
                 {/* Avatar */}
                 <div className="flex justify-center md:justify-start w-full">
                   <div className="">
@@ -284,10 +319,14 @@ const App = () => {
                     {/* Contact*/}
                     <div className="w-full md:w-1/3 flex flex-col md:gap-1 break-words">
                       <p className="text-xs font-extrabold text-blue-900">Contact</p>
-                      <p className="text-xs flex items-center gap-1"><MapPinHouse className="h-3 w-3 shrink-0"/>Cagayan de Oro City</p>
-                      <p className="text-xs flex items-center gap-1"><Phone className="h-3 w-3 shrink-0"/>+63 968 5828 627 </p>
-                      <p className="text-xs flex items-center gap-1"><AtSign className="h-3 w-3 shrink-0"/>tagailo.danvincent@gmail.com </p>
-                      <a href="https://www.linkedin.com/in/dhanixblue" target="_blank" className="text-xs underline flex items-center gap-1">
+                      <p className="text-xs flex items-center gap-1"><MapPinHouse className="h-3 w-3 shrink-0"/>Cagayan
+                        de Oro City</p>
+                      <p className="text-xs flex items-center gap-1"><Phone className="h-3 w-3 shrink-0"/>+63 968 5828
+                        627 </p>
+                      <p className="text-xs flex items-center gap-1"><AtSign className="h-3 w-3 shrink-0"/>tagailo.danvincent@gmail.com
+                      </p>
+                      <a href="https://www.linkedin.com/in/dhanixblue" target="_blank"
+                         className="text-xs underline flex items-center gap-1">
                         <Link className="h-3 w-3 shrink-0"/>
                         linkedin.com/in/dhanixblue
                       </a>
@@ -300,7 +339,8 @@ const App = () => {
                         applications across a wide range of
                         backend and frontend technologies. He is a full-stack developer with experience in requirement
                         analysis,
-                        UI design and integration, API development with unit and integration testing, database design, and
+                        UI design and integration, API development with unit and integration testing, database design,
+                        and
                         deployment.
                         His experience working on diverse projects using various technologies and frameworks has shaped
                         his ability
@@ -319,7 +359,7 @@ const App = () => {
                       <div className="flex flex-wrap gap-2">
                         {/* <div> */}
 
-                          <Skills />
+                        <Skills/>
                       </div>
 
                       <Separator className={'mt-5'}/>
@@ -425,6 +465,63 @@ const App = () => {
               </Card>
             </TabsContent>
 
+            <TabsContent value="games" className="">
+              <Card
+                className="bg-gradient-to-b from-amber-50 to-sky-50 border-0 shadow-none md:border md:shadow-sm flex flex-row p-2 gap-4 justify-between items-start h-full w-full">
+                <div className="flex flex-col justify-start w-full">
+                  <div className={'text-xs font-bold w-full flex flex-row justify-between'}>
+                    <GameTiles onClicked={onClicked} isActive={isActive}/>
+                  </div>
+                  <div className={'w-full flex flex-row justify-between'}>
+
+                    {selectedTile === 0 && <Alphabet/>}
+
+                    {selectedTile === 1 && <ShapeAndColorMatching/>}
+
+                    {selectedTile === 2 && <NumbersAndAnimals/>}
+
+                    {selectedTile === 3 && <ColorMatchGame/>}
+
+                    {selectedTile === 4 && <FindTheColor/>}
+
+                    {selectedTile === 5 && <Numbers1to50/>}
+
+                    {selectedTile === 6 && <ShapesTapSpeak/>}
+
+                    {selectedTile === 7 && <FindTheShape/>}
+
+                    {selectedTile === 8 && <DragMatchColors/>}
+
+                    {selectedTile === 9 && <AnimalSounds/>}
+
+                    {selectedTile === 10 && <DragMatchShapes/>}
+
+                    {selectedTile === 11 && <FindBodyParts/>}
+
+                    {selectedTile === 12 && <BodyPartsTapSpeak/>}
+
+                    {selectedTile === 13 && <FruitsTapSpeak/>}
+
+                    {selectedTile === 14 && <VeggiesTapSpeak/>}
+
+                    {selectedTile === 15 && <FishTapSpeak/>}
+
+                    {selectedTile === 16 && <BirdsTapSpeak/>}
+
+                    {selectedTile === 17 && <AlphabetTracing/>}
+
+                    {selectedTile === 18 && <TetrisGame/>}
+
+                    {selectedTile === 19 && <SnakeGame/>}
+
+                    {selectedTile === 20 && <DinoRunner/>}
+
+                    {selectedTile === 21 && <ShapeDropbox/>}
+                  </div>
+                </div>
+              </Card>
+            </TabsContent>
+
           </Tabs>
         </div>
 
@@ -442,9 +539,12 @@ const App = () => {
             }
             subtitle={
               <div className={'flex flex-row gap-1'}>
-                <Badge className="h-3 min-w-3 rounded-full px-1 font-mono tabular-nums bg-outline bg-green-500"/>
-                <Badge className="h-3 min-w-3 rounded-full px-1 font-mono tabular-nums bg-outline bg-yellow-500"/>
-                <Badge className="h-3 min-w-3 rounded-full px-1 font-mono tabular-nums bg-outline bg-red-500"/>
+                <Badge
+                  className="h-3 min-w-3 rounded-full px-1 font-mono tabular-nums bg-outline bg-green-500 animate-badge-1"/>
+                <Badge
+                  className="h-3 min-w-3 rounded-full px-1 font-mono tabular-nums bg-outline bg-yellow-500 animate-badge-2"/>
+                <Badge
+                  className="h-3 min-w-3 rounded-full px-1 font-mono tabular-nums bg-outline bg-red-500 animate-badge-3"/>
               </div>
             }
           >
@@ -464,9 +564,12 @@ const App = () => {
             }
             subtitle={
               <div className={'flex flex-row gap-1'}>
-                <Badge className="h-3 min-w-3 rounded-full px-1 font-mono tabular-nums bg-outline bg-green-500"/>
-                <Badge className="h-3 min-w-3 rounded-full px-1 font-mono tabular-nums bg-outline bg-yellow-500"/>
-                <Badge className="h-3 min-w-3 rounded-full px-1 font-mono tabular-nums bg-outline bg-red-500"/>
+                <Badge
+                  className="h-3 min-w-3 rounded-full px-1 font-mono tabular-nums bg-outline bg-green-500 animate-sweep-1"/>
+                <Badge
+                  className="h-3 min-w-3 rounded-full px-1 font-mono tabular-nums bg-outline bg-yellow-500 animate-sweep-2"/>
+                <Badge
+                  className="h-3 min-w-3 rounded-full px-1 font-mono tabular-nums bg-outline bg-red-500  animate-sweep-3"/>
               </div>
             }>
             <p className={'text-xs'}>Hello World</p>
@@ -476,7 +579,8 @@ const App = () => {
         </div>
 
         {/* Chatbox */}
-        <div className="shrink-0 md:shadow-sm flex flex-col w-full min-h-0 md:max-h-[40vh] rounded-xl overflow-hiddenbg-white">
+        <div
+          className="shrink-0 md:shadow-sm flex flex-col w-full min-h-0 md:max-h-[40vh] rounded-xl overflow-hiddenbg-white">
 
           <PanelCard
             title={

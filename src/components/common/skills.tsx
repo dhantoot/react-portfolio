@@ -1,6 +1,6 @@
 import {memo, useState} from "react"
 import {CheckCircle2Icon} from "lucide-react"
-import { Badge } from "@/components/ui/badge"
+import {Badge} from "@/components/ui/badge"
 
 function Skills() {
 
@@ -27,6 +27,8 @@ function Skills() {
     'Mocha',
     'Jest',
   ])
+  const step = 0.08 // seconds between each item
+
   return (
     <>
       {
@@ -41,8 +43,9 @@ function Skills() {
             */
             className="text-[10px] md:text-xs flex items-center gap-1 flex-grow basis-[calc(50%-8px)] max-w-[calc(50%-4px)] h-fit shrink-0"
           >
-            <CheckCircle2Icon size={12} className="shrink-0" />
-            <span className="truncate">{skill}</span> 
+            <CheckCircle2Icon size={12} className={`shrink-0  animate-sweep`}
+                              style={{animationDelay: `${index * step}s`}}/>
+            <span className="truncate">{skill}</span>
           </Badge>
         ))
       }
