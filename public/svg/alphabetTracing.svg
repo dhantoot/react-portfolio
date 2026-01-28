@@ -1,0 +1,73 @@
+<svg width="800" height="800" viewBox="0 0 800 800" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <!-- Teal Glow (Background Path) -->
+        <filter id="teal-glow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="4" result="coloredBlur" />
+            <feMerge>
+                <feMergeNode in="coloredBlur" />
+                <feMergeNode in="SourceGraphic" />
+            </feMerge>
+        </filter>
+
+        <!-- Super Bright Yellow Neon Glow (Active Trace) -->
+        <filter id="bright-yellow-glow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="8" result="coloredBlur" />
+            <feMerge>
+                <feMergeNode in="coloredBlur" />
+                <feMergeNode in="coloredBlur" />
+                <feMergeNode in="coloredBlur" />
+                <feMergeNode in="SourceGraphic" />
+            </feMerge>
+        </filter>
+    </defs>
+
+    <!-- Background -->
+    <rect width="100%" height="100%" fill="black" rx="20" />
+
+    <!-- Centered Content -->
+    <g transform="translate(0, 50)">
+
+        <!-- 1. The Untraced Path (Full Letter 'A') - Solid Teal -->
+        <!-- Changed to solid line (no stroke-dasharray), brighter teal (#00AAAA), slightly thinner than the yellow trace -->
+        <g stroke="#00AAAA" fill="none" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" filter="url(#teal-glow)">
+            <!-- Letter A shape -->
+            <path d="M 250,600 L 400,200 L 550,600" />
+            <path d="M 310,450 L 490,450" />
+        </g>
+
+        <!-- 2. The Traced Progress (Solid Line) - Bright Yellow -->
+        <!-- This sits ON TOP of the teal line -->
+        <g stroke="#FFFF00" fill="none" stroke-width="16" stroke-linecap="round" stroke-linejoin="round" filter="url(#bright-yellow-glow)">
+            <!-- Tracing the left leg upwards -->
+            <path d="M 250,600 L 340,360" />
+        </g>
+
+        <!-- 3. The Hand/Cursor -->
+        <g transform="translate(340, 360)">
+
+            <!-- Motion/Action Ring around the finger tip -->
+            <circle cx="0" cy="0" r="25" stroke="white" stroke-width="4" fill="none" opacity="0.6" stroke-dasharray="10 10" />
+
+            <!-- Hand Graphic -->
+            <g fill="#FFFF00" stroke="#FFAA00" stroke-width="2" filter="url(#bright-yellow-glow)">
+                <!-- Hand pointing finger shape -->
+                <path d="
+            M 0,10
+            L 10,60
+            Q 15,80 40,80
+            L 70,80
+            Q 90,80 90,100
+            L 90,120
+            Q 90,140 60,140
+            L 40,140
+            Q 10,140 -20,100
+            L -40,60
+            Z" transform="rotate(-25) translate(-10, 0)" />
+            </g>
+
+            <!-- Bright white tip for touch point -->
+            <circle cx="0" cy="0" r="12" fill="white" filter="url(#bright-yellow-glow)" />
+        </g>
+
+    </g>
+</svg>

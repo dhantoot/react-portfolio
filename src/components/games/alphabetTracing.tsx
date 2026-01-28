@@ -1,4 +1,4 @@
-import {useEffect, useMemo, useRef, useState} from "react"
+import {useEffect, useMemo, useRef, useState, memo} from "react"
 
 type Letter =
   | "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I" | "J"
@@ -147,7 +147,7 @@ function beep(freq = 520, duration = 0.06, gain = 0.2) {
   o.stop(ctx.currentTime + duration)
 }
 
-export default function AlphabetTracing() {
+function AlphabetTracing() {
   const [letterIndex, setLetterIndex] = useState(0)
   const [progress, setProgress] = useState(0)
   const [trace, setTrace] = useState<[number, number][]>([])
@@ -330,3 +330,5 @@ export default function AlphabetTracing() {
     </div>
   )
 }
+
+export default memo(AlphabetTracing)

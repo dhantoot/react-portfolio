@@ -1,4 +1,4 @@
-import {useState} from "react"
+import {memo, useState} from "react"
 
 type FishItem = {
   name: string
@@ -40,7 +40,7 @@ function speak(text: string) {
   window.speechSynthesis.speak(utter)
 }
 
-export default function FishTapSpeak() {
+function FishTapSpeak() {
   const [active, setActive] = useState<FishItem>(FISH[0])
 
   function onPick(fish: FishItem) {
@@ -84,3 +84,5 @@ export default function FishTapSpeak() {
     </div>
   )
 }
+
+export default memo(FishTapSpeak)

@@ -1,4 +1,4 @@
-import {useState} from "react"
+import {memo, useState} from "react"
 
 type BodyItem = {
   name: string
@@ -40,7 +40,7 @@ function speak(text: string) {
   window.speechSynthesis.speak(utter)
 }
 
-export default function BodyPartsTapSpeak() {
+function BodyPartsTapSpeak() {
   const [active, setActive] = useState<BodyItem>(BODY_PARTS[0])
 
   function onPick(part: BodyItem) {
@@ -84,3 +84,5 @@ export default function BodyPartsTapSpeak() {
     </div>
   )
 }
+
+export default memo(BodyPartsTapSpeak)

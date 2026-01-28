@@ -1,0 +1,34 @@
+<svg width="800" height="800" viewBox="0 0 800 800" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <!-- Green Neon Glow (Snake) -->
+        <filter id="green-glow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="6" result="coloredBlur" />
+            <feMerge><feMergeNode in="coloredBlur" /><feMergeNode in="coloredBlur" /><feMergeNode in="SourceGraphic" /></feMerge>
+        </filter>
+        <!-- Red Neon Glow (Apple) -->
+        <filter id="red-glow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="8" result="coloredBlur" />
+            <feMerge><feMergeNode in="coloredBlur" /><feMergeNode in="SourceGraphic" /></feMerge>
+        </filter>
+    </defs>
+
+    <rect width="100%" height="100%" fill="black" rx="20" />
+
+    <g transform="translate(100, 100)">
+
+        <!-- The Snake (Green) -->
+        <!-- Using a thick square-capped stroke to look like pixels -->
+        <g stroke="#00FF00" fill="none" stroke-width="50" stroke-linecap="square" stroke-linejoin="miter" filter="url(#green-glow)">
+            <path d="M 100,500 L 100,300 L 400,300 L 400,500 L 500,500" />
+        </g>
+
+        <!-- Snake Eye (Detail) -->
+        <rect x="510" y="485" width="10" height="10" fill="black" />
+
+        <!-- The Apple (Red Pixel) -->
+        <g fill="#FF0000" filter="url(#red-glow)">
+            <rect x="580" y="475" width="50" height="50" />
+        </g>
+
+    </g>
+</svg>

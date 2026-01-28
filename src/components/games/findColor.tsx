@@ -1,4 +1,4 @@
-import {useEffect, useMemo, useState} from "react"
+import {useEffect, useMemo, useState, memo} from "react"
 
 type ColorItem = {
   name: string
@@ -30,36 +30,40 @@ const COLORS: ColorItem[] = [
   {name: "Lavender", className: "bg-violet-200", hex: "#ddd6fe", freq: 180},
 ]
 
-function beep(freq = 440, duration = 0.12, gain = 0.25) {
-  const ctx = new (window.AudioContext || (window as any).webkitAudioContext)()
-  const o = ctx.createOscillator()
-  const g = ctx.createGain()
-  o.connect(g)
-  g.connect(ctx.destination)
-  o.frequency.value = freq
-  g.gain.value = gain
-  o.start()
-  o.stop(ctx.currentTime + duration)
-}
+// function beep(freq = 440, duration = 0.12, gain = 0.25) {
+//   const ctx = new (window.AudioContext || (window as any).webkitAudioContext)()
+//   const o = ctx.createOscillator()
+//   const g = ctx.createGain()
+//   o.connect(g)
+//   g.connect(ctx.destination)
+//   o.frequency.value = freq
+//   g.gain.value = gain
+//   o.start()
+//   o.stop(ctx.currentTime + duration)
+// }
 
 function pickRandom(arr: ColorItem[]) {
   return arr[Math.floor(Math.random() * arr.length)]
 }
 
-export default function FindTheColor() {
+function FindTheColor() {
   const allColors = useMemo(() => COLORS, [])
   const [target, setTarget] = useState<ColorItem>(() => pickRandom(allColors))
   const [message, setMessage] = useState("Tap the color I say!")
   const [audioReady, setAudioReady] = useState(false)
 
+  function speak(text: string) {
+    if (!("speechSynthesis" in window)) return
+    window.speechSynthesis.cancel()
+    const utter = new SpeechSynthesisUtterance(text)
+    utter.rate = 0.9
+    utter.pitch = 1.1
+    window.speechSynthesis.speak(utter)
+  }
+
   // useEffect(() => {
   //   speak(`Find ${target.name}`)
   // }, [target])
-
-  useEffect(() => {
-    if (!audioReady) return
-    speak(`Find ${target.name}`)
-  }, [target, audioReady])
 
   function startAudio() {
     setAudioReady(true)
@@ -72,27 +76,24 @@ export default function FindTheColor() {
     setMessage("Tap the color I say!")
   }
 
-  function speak(text: string) {
-    if (!("speechSynthesis" in window)) return
-    window.speechSynthesis.cancel()
-    const utter = new SpeechSynthesisUtterance(text)
-    utter.rate = 0.9
-    utter.pitch = 1.1
-    window.speechSynthesis.speak(utter)
-  }
-
   function onPick(c: ColorItem) {
     if (c.name === target.name) {
       setMessage("Great job!")
-      beep(700, 0.12, 0.3)
-      speak("Correct.        !")
+      // beep(700, 0.12, 0.3)
+      // speak("Great Job!.")
+      speak("Correct!.")
       setTimeout(() => nextTarget(), 600)
     } else {
       setMessage("Try again")
-      beep(240, 0.1, 0.25)
+      // beep(240, 0.1, 0.25)
       speak(`Try again!`)
     }
   }
+
+  useEffect(() => {
+    if (!audioReady) return
+    speak(`Find ${target.name}`)
+  }, [target, audioReady])
 
   return (
     <div className="min-h-screen w-full p-4">
@@ -149,3 +150,5 @@ export default function FindTheColor() {
     </div>
   )
 }
+
+export default memo(FindTheColor)

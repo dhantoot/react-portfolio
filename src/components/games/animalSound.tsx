@@ -1,4 +1,4 @@
-import {useRef, useState} from "react"
+import {memo, useRef, useState} from "react"
 
 type Animal = {
   name: string
@@ -32,7 +32,7 @@ const ANIMALS: Animal[] = [
   {name: "Snake", soundSrc: "/audio/snake.mp3", image: "/images/snake.jpg"},
 ]
 
-export default function AnimalSounds() {
+function AnimalSounds() {
   const [active, setActive] = useState<Animal>(ANIMALS[0])
   const audioRef = useRef<HTMLAudioElement | null>(null)
 
@@ -88,3 +88,5 @@ export default function AnimalSounds() {
     </div>
   )
 }
+
+export default memo(AnimalSounds)

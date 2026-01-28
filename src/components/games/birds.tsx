@@ -1,4 +1,4 @@
-import {useState} from "react"
+import {memo, useState} from "react"
 
 type BirdItem = {
   name: string
@@ -40,7 +40,7 @@ function speak(text: string) {
   window.speechSynthesis.speak(utter)
 }
 
-export default function BirdsTapSpeak() {
+function BirdsTapSpeak() {
   const [active, setActive] = useState<BirdItem>(BIRDS[0])
 
   function onPick(bird: BirdItem) {
@@ -84,3 +84,5 @@ export default function BirdsTapSpeak() {
     </div>
   )
 }
+
+export default memo(BirdsTapSpeak)

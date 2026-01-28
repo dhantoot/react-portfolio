@@ -1,0 +1,59 @@
+<svg width="800" height="800" viewBox="0 0 800 800" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <!-- Green Neon Glow Filter -->
+        <filter id="green-glow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="5" result="coloredBlur" />
+            <feMerge>
+                <feMergeNode in="coloredBlur" />
+                <feMergeNode in="coloredBlur" />
+                <feMergeNode in="SourceGraphic" />
+            </feMerge>
+        </filter>
+
+        <!-- Orange Neon Glow Filter -->
+        <filter id="orange-glow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="5" result="coloredBlur" />
+            <feMerge>
+                <feMergeNode in="coloredBlur" />
+                <feMergeNode in="coloredBlur" />
+                <feMergeNode in="SourceGraphic" />
+            </feMerge>
+        </filter>
+    </defs>
+
+    <!-- Background -->
+    <rect width="100%" height="100%" fill="black" rx="20" />
+
+    <!-- Centered Content -->
+    <!--
+       Content Bounds: x[50-480] width=430, y[50-220] height=170
+       Container: 800x800
+       X-center: (800 - 430) / 2 = 185 padding. Offset = 185 - 50 = 135
+       Y-center: (800 - 170) / 2 = 315 padding. Offset = 315 - 50 = 265
+    -->
+    <g transform="translate(135, 265)">
+
+        <!-- Left Triangle (Green) with gap for arrow -->
+        <g stroke="#00FF99" fill="none" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" filter="url(#green-glow)">
+            <!-- Bottom line -->
+            <path d="M 50,220 L 250,220" />
+            <!-- Left side -->
+            <path d="M 50,220 L 150,50" />
+            <!-- Top part of right side -->
+            <path d="M 150,50 L 210,152" />
+            <!-- Bottom part of right side -->
+            <path d="M 235,195 L 250,220" />
+
+            <!-- Arrow pointing Right -->
+            <path d="M 170,165 L 260,165" />
+            <path d="M 235,145 L 260,165 L 235,185" />
+        </g>
+
+        <!-- Right Triangle (Orange Dashed) -->
+        <g stroke="#FFAA00" fill="none" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="15 15" filter="url(#orange-glow)">
+            <!-- Standard Triangle Path -->
+            <path d="M 280,220 L 380,50 L 480,220 Z" />
+        </g>
+
+    </g>
+</svg>

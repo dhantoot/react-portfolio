@@ -1,4 +1,4 @@
-import {useEffect, useMemo, useState} from "react"
+import {memo, useEffect, useMemo, useState} from "react"
 
 type BodyItem = {
   name: string
@@ -44,7 +44,7 @@ function pickRandom(arr: BodyItem[]) {
   return arr[Math.floor(Math.random() * arr.length)]
 }
 
-export default function FindBodyParts() {
+function FindBodyParts() {
   const allParts = useMemo(() => BODY_PARTS, [])
   const [target, setTarget] = useState<BodyItem>(() => pickRandom(allParts))
   const [message, setMessage] = useState("Tap the body part I say!")
@@ -116,3 +116,5 @@ export default function FindBodyParts() {
     </div>
   )
 }
+
+export default  memo(FindBodyParts)

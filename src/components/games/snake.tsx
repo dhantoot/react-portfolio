@@ -1,4 +1,4 @@
-import {useCallback, useEffect, useMemo, useState} from "react"
+import {useCallback, useEffect, useMemo, useState, memo} from "react"
 import {ArrowBigDown, ArrowBigLeft, ArrowBigRight, ArrowBigUp, FastForward, Pause, Play, RotateCcw} from "lucide-react";
 import {Button} from "@/components/ui/button.tsx";
 
@@ -24,7 +24,7 @@ function randFood(snake: Point[]) {
   return p
 }
 
-export default function SnakeGame() {
+function SnakeGame() {
   const [snake, setSnake] = useState<Point[]>(START)
   const [dir, setDir] = useState<Point>({x: 1, y: 0})
   const [food, setFood] = useState<Point>(() => randFood(START))
@@ -215,3 +215,5 @@ export default function SnakeGame() {
     </div>
   )
 }
+
+export default memo(SnakeGame)

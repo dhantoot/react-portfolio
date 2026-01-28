@@ -1,4 +1,4 @@
-import {useCallback, useEffect, useRef, useState} from "react"
+import {memo, useCallback, useEffect, useRef, useState} from "react"
 import {ArrowsUpFromLine, Pause, Play, RotateCcw} from "lucide-react";
 import {Button} from "@/components/ui/button.tsx";
 
@@ -8,10 +8,10 @@ const GROUND_H = 32
 const DINO_W = 28
 const DINO_H = 32
 const GRAVITY = 0.45
-const JUMP_V = 12
+const JUMP_V = 11
 const SPEED_START = 2.1
 
-export default function DinoRunner() {
+function DinoRunner() {
   const [running, setRunning] = useState(false)
   const [gameOver, setGameOver] = useState(false)
   const [score, setScore] = useState(0)
@@ -210,3 +210,5 @@ export default function DinoRunner() {
     </div>
   )
 }
+
+export default memo(DinoRunner)

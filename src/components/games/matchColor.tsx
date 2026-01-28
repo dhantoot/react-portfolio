@@ -1,4 +1,4 @@
-import {useLayoutEffect, useMemo, useRef, useState} from "react"
+import {useLayoutEffect, useMemo, useRef, useState, memo} from "react"
 
 type ShapeRender =
   | "circle"
@@ -110,7 +110,7 @@ function ShapeIcon({item}: { item: ShapeItem }) {
   }
 }
 
-export default function DragMatchColors() {
+function DragMatchColors() {
   const playRef = useRef<HTMLDivElement | never>(null)
   const boxRefs = useRef<(HTMLDivElement | never)[]>([])
 
@@ -272,3 +272,5 @@ export default function DragMatchColors() {
     </div>
   )
 }
+
+export default memo(DragMatchColors)

@@ -1,4 +1,4 @@
-import {useState} from "react"
+import {memo, useState} from "react"
 
 type ColorItem = {
   name: string
@@ -39,24 +39,24 @@ function speak(text: string) {
   window.speechSynthesis.speak(utter)
 }
 
-function beep(freq = 440, duration = 0.1, gain = 0.2) {
-  const ctx = new (window.AudioContext || (window as any).webkitAudioContext)()
-  const o = ctx.createOscillator()
-  const g = ctx.createGain()
-  o.connect(g)
-  g.connect(ctx.destination)
-  o.frequency.value = freq
-  g.gain.value = gain
-  o.start()
-  o.stop(ctx.currentTime + duration)
-}
+// function beep(freq = 440, duration = 0.1, gain = 0.2) {
+//   const ctx = new (window.AudioContext || (window as any).webkitAudioContext)()
+//   const o = ctx.createOscillator()
+//   const g = ctx.createGain()
+//   o.connect(g)
+//   g.connect(ctx.destination)
+//   o.frequency.value = freq
+//   g.gain.value = gain
+//   o.start()
+//   o.stop(ctx.currentTime + duration)
+// }
 
-export default function Colors() {
+function Colors() {
   const [active, setActive] = useState<ColorItem>(COLORS[0])
 
   function onPick(c: ColorItem) {
     setActive(c)
-    beep(c.freq, 0.12, 0.25)
+    // beep(c.freq, 0.12, 0.25)
     speak(c.name)
   }
 
@@ -98,3 +98,5 @@ export default function Colors() {
     </div>
   )
 }
+
+export default memo(Colors)

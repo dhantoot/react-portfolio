@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useState, memo} from "react";
 
 type ShapeItem = {
   name: string
@@ -126,7 +126,7 @@ function ShapeIcon({item}: { item: ShapeItem }) {
   }
 }
 
-export default function ShapesTapSpeak() {
+function ShapesTapSpeak() {
   const [active, setActive] = useState(0)
 
   function onPick(index: number) {
@@ -166,3 +166,5 @@ export default function ShapesTapSpeak() {
     </div>
   )
 }
+
+export default memo(ShapesTapSpeak)

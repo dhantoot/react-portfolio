@@ -1,4 +1,4 @@
-import {useLayoutEffect, useRef, useState} from "react"
+import {useLayoutEffect, useRef, useState, memo} from "react"
 
 type ShapeRender =
   | "circle"
@@ -129,7 +129,7 @@ function ShapeHole({item}: { item: ShapeItem }) {
   }
 }
 
-export default function ShapeDropbox() {
+function ShapeDropbox() {
   const playRef = useRef<HTMLDivElement | null>(null)
   const holeRefs = useRef<(HTMLDivElement | null)[]>([])
 
@@ -281,3 +281,5 @@ export default function ShapeDropbox() {
     </div>
   )
 }
+
+export default memo(ShapeDropbox)

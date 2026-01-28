@@ -1,4 +1,4 @@
-import {useState} from "react"
+import {useState, memo} from "react"
 
 type VegItem = {
   name: string
@@ -40,7 +40,7 @@ function speak(text: string) {
   window.speechSynthesis.speak(utter)
 }
 
-export default function VeggiesTapSpeak() {
+function VeggiesTapSpeak() {
   const [active, setActive] = useState<VegItem>(VEGGIES[0])
 
   function onPick(veg: VegItem) {
@@ -84,3 +84,5 @@ export default function VeggiesTapSpeak() {
     </div>
   )
 }
+
+export default memo(VeggiesTapSpeak)

@@ -1,5 +1,5 @@
 import * as React from "react"
-import {useLayoutEffect, useRef, useState} from "react"
+import {memo, useLayoutEffect, useRef, useState} from "react"
 
 type ShapeRender =
   | "circle"
@@ -175,7 +175,7 @@ function ShapeOutline({item}: { item: ShapeItem }) {
   }
 }
 
-export default function DragMatchShapes() {
+function DragMatchShapes() {
   const playRef = useRef<HTMLDivElement | null>(null)
   const targetRefs = useRef<(HTMLDivElement | never)[]>([])
 
@@ -332,3 +332,5 @@ export default function DragMatchShapes() {
     </div>
   )
 }
+
+export default memo(DragMatchShapes)

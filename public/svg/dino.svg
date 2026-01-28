@@ -1,0 +1,63 @@
+<svg width="800" height="800" viewBox="0 0 800 800" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <!-- Neon Green Glow (Stick Man) -->
+        <filter id="green-glow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="6" result="coloredBlur" />
+            <feMerge>
+                <feMergeNode in="coloredBlur" />
+                <feMergeNode in="coloredBlur" />
+                <feMergeNode in="SourceGraphic" />
+            </feMerge>
+        </filter>
+
+        <!-- Neon Red Glow (Cactus/Obstacle) -->
+        <filter id="red-glow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="6" result="coloredBlur" />
+            <feMerge>
+                <feMergeNode in="coloredBlur" />
+                <feMergeNode in="coloredBlur" />
+                <feMergeNode in="SourceGraphic" />
+            </feMerge>
+        </filter>
+    </defs>
+
+    <!-- Background -->
+    <rect width="100%" height="100%" fill="black" rx="20" />
+
+    <g transform="translate(150, 150)">
+
+        <!-- Ground Line (Simple White) -->
+        <line x1="-50" y1="450" x2="550" y2="450" stroke="white" stroke-width="6" opacity="0.5" />
+
+        <!-- The Stick Man (Neon Green) - Jumping Pose -->
+        <g stroke="#00FF00" fill="none" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" filter="url(#green-glow)">
+            <!-- Head -->
+            <circle cx="150" cy="150" r="30" />
+
+            <!-- Body -->
+            <line x1="150" y1="180" x2="150" y2="280" />
+
+            <!-- Arms (Raised/Balancing) -->
+            <path d="M 120,200 L 150,220 L 190,200" />
+
+            <!-- Legs (Running/Jumping in mid-air) -->
+            <!-- Front Leg (Bent up) -->
+            <path d="M 150,280 L 190,300 L 210,270" />
+            <!-- Back Leg (Kicking back) -->
+            <path d="M 150,280 L 120,310 L 90,290" />
+        </g>
+
+        <!-- The Cactus/Obstacle (Neon Red) -->
+        <g stroke="#FF0000" fill="none" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" filter="url(#red-glow)">
+            <!-- Main stem -->
+            <path d="M 380,450 L 380,330" />
+            <!-- Left arm -->
+            <path d="M 360,400 L 380,400" />
+            <path d="M 360,400 L 360,370" />
+            <!-- Right arm -->
+            <path d="M 380,380 L 400,380" />
+            <path d="M 400,380 L 400,350" />
+        </g>
+
+    </g>
+</svg>

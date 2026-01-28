@@ -1,0 +1,22 @@
+<svg width="300" height="250" viewBox="0 0 300 250" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      .shape-outline { fill: none; stroke-width: 4; stroke-linejoin: round; }
+    </style>
+  </defs>
+
+  <!-- Group for the Icon -->
+  <g transform="translate(50, 20)">
+    <!-- 1. Shapes Layer (Behind Lens) -->
+    <rect x="50" y="50" width="40" height="40" stroke="#FF5733" transform="rotate(-15, 70, 70)" class="shape-outline" />
+    <circle cx="130" cy="80" r="25" stroke="#33FF57" class="shape-outline" />
+    <polygon points="90,120 120,170 60,170" stroke="#3357FF" transform="rotate(10, 90, 145)" class="shape-outline" />
+
+    <!-- 2. Search Lens (Magnifying Glass) -->
+    <circle cx="100" cy="100" r="80" fill="rgba(200, 230, 255, 0.3)" stroke="#333" stroke-width="8" />
+    <line x1="156" y1="156" x2="210" y2="210" stroke="#333" stroke-width="20" stroke-linecap="round" />
+
+    <!-- 3. Highlight on Lens -->
+    <path d="M 60,60 Q 80,40 100,50" fill="none" stroke="white" stroke-width="5" opacity="0.6" stroke-linecap="round" />
+  </g>
+</svg>

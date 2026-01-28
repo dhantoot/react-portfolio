@@ -1,4 +1,4 @@
-import {useMemo, useState} from "react"
+import {useMemo, useState, memo} from "react"
 
 type Shape = "circle" | "square" | "triangle"
 type Color = { name: string; className: string; hex: string }
@@ -20,7 +20,7 @@ function makeRound() {
   return {shape: getRandom(SHAPES), color: getRandom(COLORS)}
 }
 
-export default function ShapeAndColorMatching() {
+function ShapeAndColorMatching() {
   const [round, setRound] = useState(makeRound)
   const [message, setMessage] = useState("Tap the matching shape")
   const [selected, setSelected] = useState<{ shape: Shape; color: Color } | null>(null)
@@ -154,3 +154,5 @@ function ShapeTile({shape, color, size,}: {
     />
   )
 }
+
+export default memo(ShapeAndColorMatching)

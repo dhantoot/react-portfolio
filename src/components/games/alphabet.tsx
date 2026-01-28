@@ -1,4 +1,4 @@
-import {useMemo, useState} from "react"
+import {memo, useMemo, useState} from "react"
 
 type Letter = string
 
@@ -46,7 +46,7 @@ function speak(text: string) {
   window.speechSynthesis.speak(utter)
 }
 
-export default function Alphabet() {
+ function Alphabet() {
   const [active, setActive] = useState<Animal>(ANIMALS[0])
 
   const tiles = useMemo(() => ANIMALS, [])
@@ -110,3 +110,5 @@ export default function Alphabet() {
     </div>
   )
 }
+
+export default memo(Alphabet)

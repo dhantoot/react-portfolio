@@ -1,0 +1,46 @@
+<svg width="800" height="800" viewBox="0 0 800 800" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <!-- Cyan Glow -->
+        <filter id="cyan-glow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="6" result="coloredBlur" />
+            <feMerge><feMergeNode in="coloredBlur" /><feMergeNode in="SourceGraphic" /></feMerge>
+        </filter>
+        <!-- Magenta Glow -->
+        <filter id="magenta-glow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="6" result="coloredBlur" />
+            <feMerge><feMergeNode in="coloredBlur" /><feMergeNode in="SourceGraphic" /></feMerge>
+        </filter>
+        <!-- Yellow Glow -->
+        <filter id="yellow-glow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="6" result="coloredBlur" />
+            <feMerge><feMergeNode in="coloredBlur" /><feMergeNode in="SourceGraphic" /></feMerge>
+        </filter>
+    </defs>
+
+    <rect width="100%" height="100%" fill="black" rx="20" />
+
+    <g transform="translate(180, 150)">
+
+        <!-- Stacked Piece (L-Shape) - Cyan -->
+        <g stroke="#00FFFF" fill="none" stroke-width="12" stroke-linejoin="round" filter="url(#cyan-glow)">
+            <!-- Outline of an L shape standing up -->
+            <path d="M 0,300 L 100,300 L 100,400 L 200,400 L 200,500 L 0,500 Z" />
+            <!-- Internal lines for block effect -->
+            <path d="M 0,400 L 100,400 M 100,300 L 100,500" stroke-width="6" opacity="0.6"/>
+        </g>
+
+        <!-- Stacked Piece (Square) - Yellow -->
+        <g stroke="#FFFF00" fill="none" stroke-width="12" stroke-linejoin="round" filter="url(#yellow-glow)">
+            <rect x="200" y="300" width="200" height="200" />
+            <path d="M 300,300 L 300,500 M 200,400 L 400,400" stroke-width="6" opacity="0.6"/>
+        </g>
+
+        <!-- Falling Piece (T-Shape) - Magenta -->
+        <g stroke="#FF00FF" fill="none" stroke-width="12" stroke-linejoin="round" filter="url(#magenta-glow)">
+            <!-- T shape outline -->
+            <path d="M 100,0 L 400,0 L 400,100 L 300,100 L 300,200 L 200,200 L 200,100 L 100,100 Z" />
+            <!-- Internal lines -->
+            <path d="M 200,0 L 200,100 M 300,0 L 300,100 M 200,100 L 300,100" stroke-width="6" opacity="0.6"/>
+        </g>
+    </g>
+</svg>

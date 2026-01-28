@@ -1,4 +1,4 @@
-import {useEffect, useMemo, useState} from "react"
+import {memo, useEffect, useMemo, useState} from "react"
 
 type ShapeItem = {
   name: string
@@ -43,17 +43,17 @@ function speak(text: string) {
   window.speechSynthesis.speak(utter)
 }
 
-function beep(freq = 440, duration = 0.12, gain = 0.25) {
-  const ctx = new (window.AudioContext || (window as any).webkitAudioContext)()
-  const o = ctx.createOscillator()
-  const g = ctx.createGain()
-  o.connect(g)
-  g.connect(ctx.destination)
-  o.frequency.value = freq
-  g.gain.value = gain
-  o.start()
-  o.stop(ctx.currentTime + duration)
-}
+// function beep(freq = 440, duration = 0.12, gain = 0.25) {
+//   const ctx = new (window.AudioContext || (window as any).webkitAudioContext)()
+//   const o = ctx.createOscillator()
+//   const g = ctx.createGain()
+//   o.connect(g)
+//   g.connect(ctx.destination)
+//   o.frequency.value = freq
+//   g.gain.value = gain
+//   o.start()
+//   o.stop(ctx.currentTime + duration)
+// }
 
 function pickRandom(arr: ShapeItem[]) {
   return arr[Math.floor(Math.random() * arr.length)]
@@ -127,7 +127,7 @@ function ShapeIcon({item}: { item: ShapeItem }) {
   }
 }
 
-export default function FindTheShape() {
+function FindTheShape() {
   const allShapes = useMemo(() => SHAPES, [])
   const [target, setTarget] = useState<ShapeItem>(() => pickRandom(allShapes))
   const [message, setMessage] = useState("Tap the shape I say!")
@@ -145,12 +145,12 @@ export default function FindTheShape() {
   function onPick(item: ShapeItem) {
     if (item.name === target.name) {
       setMessage("Great job!")
-      beep(700, 0.12, 0.3)
+      // beep(700, 0.12, 0.3)
       speak("Correct.        !")
       setTimeout(() => nextTarget(), 600)
     } else {
       setMessage("Try again")
-      beep(240, 0.1, 0.25)
+      // beep(240, 0.1, 0.25)
       speak(`Try again!`)
     }
   }
@@ -201,3 +201,5 @@ export default function FindTheShape() {
     </div>
   )
 }
+
+export default memo(FindTheShape)

@@ -1,6 +1,6 @@
 "use client"
 
-import {useCallback, useEffect, useMemo, useRef, useState} from "react"
+import {useCallback, useEffect, useMemo, useRef, useState, memo} from "react"
 import {ArrowBigDown, ArrowBigLeft, ArrowBigRight, MoveDown, Pause, Play, RefreshCcw, RotateCcw} from "lucide-react";
 import {Button} from "@/components/ui/button.tsx";
 
@@ -104,7 +104,7 @@ function getSpeed(level: number) {
   return Math.max(120, 800 - level * 60)
 }
 
-export default function TetrisGame() {
+function TetrisGame() {
   const [board, setBoard] = useState<Board>(emptyBoard)
   const [piece, setPiece] = useState<Piece>(randomPiece)
   const [nextPiece, setNextPiece] = useState<Piece>(randomPiece)
@@ -360,3 +360,5 @@ export default function TetrisGame() {
     </div>
   )
 }
+
+export default memo(TetrisGame)

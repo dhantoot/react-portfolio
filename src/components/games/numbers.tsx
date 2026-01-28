@@ -1,4 +1,4 @@
-import {useMemo, useState} from "react"
+import {useMemo, useState, memo} from "react"
 
 const NUMBER_WORDS: Record<number, string> = {
   1: "One", 2: "Two", 3: "Three", 4: "Four", 5: "Five",
@@ -18,7 +18,7 @@ function speak(text: string) {
   window.speechSynthesis.speak(utter)
 }
 
-export default function Numbers1to50() {
+function Numbers1to50() {
   const numbers = useMemo(() => Array.from({length: 30}, (_, i) => i + 1), [])
   const [active, setActive] = useState<number>(1)
 
@@ -62,3 +62,5 @@ export default function Numbers1to50() {
     </div>
   )
 }
+
+export default memo(Numbers1to50)
